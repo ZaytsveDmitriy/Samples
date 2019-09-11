@@ -1,0 +1,19 @@
+from E3_COM import E3, Job, Device, Symbol, Comparator
+
+
+# создаем объект листа выделенного в дереве листов в проекте 
+sheet = Job.create_sheet() 
+sheet.SetId(Job.get_sheet_id_selected_in_tree()[0]) 
+
+# создаем текст на созданном ранее листе
+graph = Job.create_graph()
+text = graph.CreateText(sheet.GetId(),"HYPERLINK to SYMBOL", 100, 100)
+text_obj = Job.create_text()
+text_obj.SetId(text)
+
+# ранее созданному тексту присваваем ссылку на символ размещенный и выделенный на поле схемы
+symbol = Job.get_symbol_id_selected_in_sheet()[0]
+text_obj.SetHyperlinkAddress ("gid:" + Job.get_gid_of_id(symbol))
+
+
+#--------И ВСЕ ЧЁТЕНЬКО РАБОТАЕТ!------#
